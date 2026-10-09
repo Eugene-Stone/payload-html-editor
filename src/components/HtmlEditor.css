@@ -1,0 +1,935 @@
+/* =========================================================
+   Wrapper
+========================================================= */
+
+.payload-html-editor {
+	width: 100%;
+	margin-bottom: 24px;
+}
+
+.html-editor-error,
+.html-editor-status {
+	padding: 8px 12px;
+	border: 1px solid var(--theme-elevation-150);
+	border-bottom: 0;
+	font-size: 13px;
+}
+
+.html-editor-error {
+	color: var(--theme-error-600);
+	background: var(--theme-error-50);
+}
+
+.html-editor-status {
+	color: var(--theme-text);
+	background: var(--theme-elevation-50);
+}
+
+
+/* =========================================================
+   Toolbar
+========================================================= */
+
+
+.html-editor-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 3px;
+
+	padding: 7px;
+
+	border: 1px solid var(--theme-elevation-150);
+	border-bottom: 0;
+
+	background: var(--theme-elevation-50);
+
+	position: sticky;
+	z-index: 4;
+	top: 56px;
+}
+
+.payload-html-editor:focus-within .html-editor-toolbar {
+	position: sticky;
+	z-index: 4;
+	top: 56px;
+}
+
+
+/* =========================================================
+   Toolbar buttons
+========================================================= */
+
+.html-editor-toolbar button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	min-width: 32px;
+	height: 32px;
+
+	padding: 0 8px;
+
+	border: 1px solid transparent;
+	border-radius: 3px;
+
+	color: var(--theme-text);
+	background: transparent;
+
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: 400;
+
+	line-height: 1;
+
+	cursor: pointer;
+
+	transition:
+		background-color 0.12s ease,
+		border-color 0.12s ease;
+}
+
+
+/* Hover */
+
+.html-editor-toolbar button:hover:not(:disabled) {
+	background: var(--theme-elevation-100);
+}
+
+
+/* Active */
+
+.html-editor-toolbar button.active,
+.html-editor-toolbar button.is-active {
+	border-color: var(--theme-elevation-250);
+
+	background: var(--theme-elevation-150);
+
+	font-weight: 500;
+}
+
+
+/* Active hover */
+
+.html-editor-toolbar button.active:hover,
+.html-editor-toolbar button.is-active:hover {
+	background: var(--theme-elevation-200);
+}
+
+
+/* Disabled */
+
+.html-editor-toolbar button:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+
+/* =========================================================
+   Toolbar select
+========================================================= */
+
+.html-editor-toolbar select {
+	height: 32px;
+
+	padding: 0 28px 0 8px;
+
+	border: 1px solid transparent;
+	border-radius: 3px;
+
+	color: var(--theme-text);
+	background: transparent;
+
+	font-family: inherit;
+	font-size: 13px;
+
+	cursor: pointer;
+}
+
+.html-editor-toolbar select:hover {
+	background: var(--theme-elevation-100);
+}
+
+.html-editor-toolbar select:focus {
+	outline: none;
+
+	border-color: var(--theme-elevation-250);
+
+	background: var(--theme-bg);
+}
+
+
+/* =========================================================
+   Separators
+========================================================= */
+
+.html-editor-toolbar .separator {
+	width: 1px;
+	height: 24px;
+
+	margin: 0 4px;
+
+	background: var(--theme-elevation-150);
+}
+
+
+/* =========================================================
+   ProseMirror
+========================================================= */
+
+.payload-html-editor .ProseMirror {
+	min-height: 400px;
+
+	padding: 16px;
+
+	border: 1px solid var(--theme-elevation-150);
+
+	outline: none;
+
+	color: var(--theme-text);
+	background: var(--theme-bg);
+
+	font-family: inherit;
+	font-size: 15px;
+	line-height: 1.6;
+
+	overflow-x: auto;
+}
+
+
+/* Focus */
+
+.payload-html-editor .ProseMirror:focus {
+	border-color: var(--theme-elevation-400);
+}
+
+
+/* =========================================================
+   Paragraphs
+========================================================= */
+
+.payload-html-editor .ProseMirror p {
+	margin: 0 0 1em;
+}
+
+.payload-html-editor .ProseMirror p:last-child {
+	margin-bottom: 0;
+}
+
+
+/* =========================================================
+   Headings
+========================================================= */
+
+.payload-html-editor .ProseMirror h1,
+.payload-html-editor .ProseMirror h2,
+.payload-html-editor .ProseMirror h3,
+.payload-html-editor .ProseMirror h4,
+.payload-html-editor .ProseMirror h5,
+.payload-html-editor .ProseMirror h6 {
+	color: var(--theme-text);
+
+	line-height: 1.25;
+}
+
+.payload-html-editor .ProseMirror h1 {
+	font-size: 2em;
+}
+
+.payload-html-editor .ProseMirror h2 {
+	font-size: 1.6em;
+}
+
+.payload-html-editor .ProseMirror h3 {
+	font-size: 1.35em;
+}
+
+.payload-html-editor .ProseMirror h4 {
+	font-size: 1.15em;
+}
+
+.payload-html-editor .ProseMirror h5 {
+	font-size: 1em;
+}
+
+.payload-html-editor .ProseMirror h6 {
+	font-size: 0.9em;
+}
+
+
+/* =========================================================
+   Lists
+========================================================= */
+
+.payload-html-editor .ProseMirror ul,
+.payload-html-editor .ProseMirror ol {
+	margin: 1em 0;
+	padding-left: 28px;
+}
+
+.payload-html-editor .ProseMirror li {
+	margin: 0.25em 0;
+}
+
+
+/* =========================================================
+   Links
+========================================================= */
+
+.payload-html-editor .ProseMirror a {
+	color: var(--theme-success-500);
+
+	text-decoration: underline;
+
+	cursor: pointer;
+}
+
+
+/* =========================================================
+   Blockquote
+========================================================= */
+
+.payload-html-editor .ProseMirror blockquote {
+	margin: 1em 0;
+
+	padding: 8px 16px;
+
+	border-left: 3px solid var(--theme-elevation-400);
+
+	color: var(--theme-elevation-700);
+}
+
+
+/* =========================================================
+   Horizontal rule
+========================================================= */
+
+.payload-html-editor .ProseMirror hr {
+	margin: 24px 0;
+
+	border: 0;
+	border-top: 1px solid var(--theme-elevation-200);
+}
+
+
+/* =========================================================
+   Code
+========================================================= */
+
+.payload-html-editor .ProseMirror code {
+	padding: 2px 5px;
+
+	border-radius: 3px;
+
+	background: var(--theme-elevation-100);
+
+	font-family: monospace;
+	font-size: 0.9em;
+}
+
+.payload-html-editor .ProseMirror pre {
+	margin: 16px 0;
+	padding: 16px;
+
+	overflow-x: auto;
+
+	border-radius: 4px;
+
+	background: var(--theme-elevation-100);
+
+	font-family: monospace;
+}
+
+.payload-html-editor .ProseMirror pre code {
+	padding: 0;
+
+	background: transparent;
+}
+
+
+/* =========================================================
+   Images
+========================================================= */
+
+.payload-html-editor .ProseMirror img {
+	display: block;
+
+	max-width: 100%;
+	height: auto;
+
+	margin: 16px 0;
+
+	cursor: pointer;
+}
+
+
+/* Selected image */
+
+.payload-html-editor .ProseMirror img.ProseMirror-selectednode {
+	outline: 2px solid var(--theme-success-500);
+	outline-offset: 2px;
+}
+
+
+/* =========================================================
+   Tables
+========================================================= */
+
+.payload-html-editor .ProseMirror table {
+	width: 100%;
+
+	margin: 20px 0;
+
+	border-collapse: collapse;
+
+	table-layout: fixed;
+}
+
+
+/* Cells */
+
+.payload-html-editor .ProseMirror table th,
+.payload-html-editor .ProseMirror table td {
+	position: relative;
+
+	min-width: 100px;
+
+	padding: 8px 10px;
+
+	border: 1px solid var(--theme-elevation-250);
+
+	vertical-align: top;
+}
+
+
+/* Header */
+
+.payload-html-editor .ProseMirror table th {
+	background: var(--theme-elevation-100);
+
+	font-weight: 600;
+}
+
+
+/* Cell hover */
+
+.payload-html-editor .ProseMirror table td:hover,
+.payload-html-editor .ProseMirror table th:hover {
+	background: var(--theme-elevation-50);
+}
+
+
+/* Selected cells */
+
+.payload-html-editor .ProseMirror table .selectedCell {
+	background: var(--theme-elevation-150);
+}
+
+
+/* Selected cells overlay */
+
+.payload-html-editor .ProseMirror table .selectedCell::after {
+	content: '';
+
+	position: absolute;
+
+	inset: 0;
+
+	pointer-events: none;
+
+	background: var(--theme-elevation-200);
+
+	opacity: 0.35;
+}
+
+
+/* Table resize handle */
+
+.payload-html-editor .ProseMirror .column-resize-handle {
+	position: absolute;
+
+	top: 0;
+	right: -2px;
+	bottom: 0;
+
+	width: 4px;
+
+	pointer-events: none;
+
+	background: var(--theme-success-500);
+}
+
+
+/* Resize cursor */
+
+.payload-html-editor .ProseMirror.resize-cursor {
+	cursor: col-resize;
+}
+
+
+/* =========================================================
+   Selection
+========================================================= */
+
+.payload-html-editor .ProseMirror ::selection {
+	background: var(--theme-elevation-250);
+}
+
+
+/* =========================================================
+   Empty editor
+========================================================= */
+
+.payload-html-editor .ProseMirror p.is-editor-empty:first-child::before {
+	content: 'Start typing...';
+
+	float: left;
+
+	height: 0;
+
+	color: var(--theme-elevation-500);
+
+	pointer-events: none;
+}
+
+
+/* ========================================
+   HTML SOURCE MODAL
+======================================== */
+
+.html-source-overlay {
+	position: fixed;
+
+	inset: 0;
+
+	z-index: 1000;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 40px;
+
+	background: rgb(0 0 0 / 55%);
+}
+
+
+.html-source-modal {
+	display: flex;
+	flex-direction: column;
+
+	width: min(1100px, 100%);
+	height: min(800px, 90vh);
+
+	border: 1px solid var(--theme-elevation-250);
+	border-radius: 4px;
+
+	background: var(--theme-bg);
+
+	box-shadow:
+		0 20px 60px rgb(0 0 0 / 30%);
+}
+
+
+/* Header */
+
+.html-source-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 12px 16px;
+
+	border-bottom: 1px solid var(--theme-elevation-150);
+}
+
+
+.html-source-header h2 {
+	margin: 0;
+
+	font-size: 16px;
+}
+
+
+.html-source-header button {
+	width: 32px;
+	height: 32px;
+
+	border: 0;
+
+	color: var(--theme-text);
+	background: transparent;
+
+	font-size: 24px;
+
+	cursor: pointer;
+}
+
+
+/* Textarea */
+
+.html-source-modal textarea {
+	flex: 1;
+
+	width: 100%;
+
+	padding: 16px;
+
+	border: 0;
+
+	outline: none;
+
+	resize: none;
+
+	color: var(--theme-text);
+	background: var(--theme-bg);
+
+	font-family:
+		'SFMono-Regular',
+		Consolas,
+		'Liberation Mono',
+		monospace;
+
+	font-size: 13px;
+	line-height: 1.6;
+}
+
+
+/* Footer */
+
+.html-source-footer {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+
+	padding: 12px 16px;
+
+	border-top: 1px solid var(--theme-elevation-150);
+}
+
+
+.html-source-footer button {
+	height: 34px;
+
+	padding: 0 14px;
+
+	border: 1px solid var(--theme-elevation-200);
+
+	border-radius: 3px;
+
+	color: var(--theme-text);
+	background: var(--theme-elevation-50);
+
+	cursor: pointer;
+}
+
+
+.html-source-footer button:hover {
+	background: var(--theme-elevation-100);
+}
+
+
+.html-source-footer button.primary {
+	border-color: var(--theme-success-500);
+
+	color: white;
+	background: var(--theme-success-500);
+}
+
+
+/* ========================================
+   MEDIA LIBRARY
+======================================== */
+
+.media-library-overlay {
+	position: fixed;
+
+	inset: 0;
+
+	z-index: 1000;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 40px;
+
+	background: rgb(0 0 0 / 55%);
+}
+
+
+.media-library-modal {
+	display: flex;
+	flex-direction: column;
+
+	width: min(1000px, 100%);
+	height: min(750px, 90vh);
+
+	border: 1px solid var(--theme-elevation-250);
+
+	border-radius: 4px;
+
+	background: var(--theme-bg);
+
+	box-shadow:
+		0 20px 60px rgb(0 0 0 / 30%);
+}
+
+
+/* Header */
+
+.media-library-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 12px 16px;
+
+	border-bottom: 1px solid var(--theme-elevation-150);
+}
+
+
+.media-library-header h2 {
+	margin: 0;
+
+	font-size: 16px;
+}
+
+
+.media-library-close {
+	width: 32px;
+	height: 32px;
+
+	border: 0;
+
+	color: var(--theme-text);
+	background: transparent;
+
+	font-size: 24px;
+
+	cursor: pointer;
+}
+
+
+/* Search */
+
+.media-library-search {
+	padding: 12px 16px;
+
+	border-bottom: 1px solid var(--theme-elevation-150);
+}
+
+
+.media-library-search input {
+	width: 100%;
+	height: 36px;
+
+	padding: 0 10px;
+
+	border: 1px solid var(--theme-elevation-200);
+
+	border-radius: 3px;
+
+	outline: none;
+
+	color: var(--theme-text);
+	background: var(--theme-bg);
+}
+
+
+.media-library-search input:focus {
+	border-color: var(--theme-elevation-400);
+}
+
+
+/* Content */
+
+.media-library-content {
+	flex: 1;
+
+	padding: 16px;
+
+	overflow-y: auto;
+}
+
+
+.media-library-grid {
+	display: grid;
+
+	grid-template-columns:
+		repeat(auto-fill,
+			minmax(150px, 1fr));
+
+	gap: 12px;
+}
+
+
+.media-library-item {
+	display: flex;
+	flex-direction: column;
+
+	padding: 0;
+
+	border: 1px solid var(--theme-elevation-150);
+
+	border-radius: 3px;
+
+	overflow: hidden;
+
+	color: var(--theme-text);
+	background: var(--theme-bg);
+
+	text-align: left;
+
+	cursor: pointer;
+}
+
+
+.media-library-item:hover {
+	border-color: var(--theme-elevation-400);
+}
+
+
+.media-library-item img {
+	display: block;
+
+	width: 100%;
+	height: 130px;
+
+	object-fit: cover;
+
+	background: var(--theme-elevation-50);
+}
+
+
+.media-library-item span {
+	display: block;
+
+	padding: 7px 8px;
+
+	overflow: hidden;
+
+	font-size: 12px;
+
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+
+/* Empty/loading */
+
+.media-library-empty,
+.media-library-loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	height: 200px;
+
+	color: var(--theme-elevation-500);
+}
+
+
+/* Footer */
+
+.media-library-footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+
+	padding: 12px 16px;
+
+	border-top: 1px solid var(--theme-elevation-150);
+}
+
+
+.media-library-footer button {
+	height: 32px;
+
+	padding: 0 12px;
+
+	border: 1px solid var(--theme-elevation-200);
+
+	border-radius: 3px;
+
+	color: var(--theme-text);
+	background: var(--theme-elevation-50);
+
+	cursor: pointer;
+}
+
+
+.media-library-footer button:hover:not(:disabled) {
+	background: var(--theme-elevation-100);
+}
+
+
+.media-library-footer button:disabled {
+	opacity: 0.4;
+
+	cursor: not-allowed;
+}
+
+/* ========================================
+   TABLE TOOLBAR
+======================================== */
+
+.html-editor-table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 4px;
+
+  padding: 6px 8px;
+
+  border: 1px solid
+    var(--theme-elevation-150);
+
+  border-top: 0;
+
+  background: var(--theme-elevation-50);
+}
+
+
+.html-editor-table-toolbar strong {
+  margin-right: 4px;
+
+  font-size: 12px;
+}
+
+
+.html-editor-table-toolbar button {
+  height: 30px;
+
+  padding: 0 8px;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  color: var(--theme-text);
+  background: transparent;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+.html-editor-table-toolbar button:hover {
+  border-color: var(--theme-elevation-200);
+
+  background: var(--theme-elevation-100);
+}
+
+
+.html-editor-table-toolbar .separator {
+  width: 1px;
+  height: 22px;
+
+  margin: 0 4px;
+
+  background: var(--theme-elevation-150);
+}
