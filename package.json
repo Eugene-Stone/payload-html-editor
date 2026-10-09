@@ -1,7 +1,7 @@
 {
 	"name": "payload-html-editor",
-	"version": "0.1.0",
-	"description": "HTML string editor field for Payload CMS 3 powered by Tiptap.",
+	"version": "0.1.1",
+	"description": "A Payload CMS 3 WYSIWYG field for editing HTML with Tiptap, rich-text tools, tables, and media.",
 	"keywords": [
 		"payload",
 		"payloadcms",

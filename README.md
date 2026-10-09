@@ -1,16 +1,19 @@
-# payload-html-editor
+# Payload HTML Editor
 
-HTML string editor field for Payload CMS 3, powered by Tiptap.
+**A visual HTML editor field for Payload CMS 3, powered by Tiptap.**
 
-The editor stores content as an HTML string in a Payload `textarea` field. It does not replace your content with Payload Lexical JSON.
+Give content editors a familiar toolbar-based WYSIWYG workflow, similar in spirit to the classic WordPress editor or CKEditor, while keeping the saved value as an HTML string in a regular Payload `textarea` field.
 
-## Compatibility
+This is an independent editor built with Tiptap—not a WordPress or CKEditor clone, and not affiliated with either project. Choose it when you want HTML as your content format instead of Payload Lexical's JSON representation.
 
-- Payload CMS `3.90.x`
-- React `19.2.x`
-- Next.js `16.3.x`
-- Tiptap `3.31.x`
-- Node `^18.20.2 || >=20.9.0`
+## Why use it?
+
+- **HTML in, HTML out.** The field stores an HTML string, which can fit existing HTML-based content and rendering pipelines.
+- **Native Payload field.** Uses a normal `textarea` field and Payload's admin field component system.
+- **Familiar editing tools.** Format text, create headings and lists, align text, add links, and edit tables.
+- **Payload media integration.** Select images from a Payload upload collection or upload them from the editor.
+- **Optional HTML source editor.** Inspect and edit source when visual editing is not enough.
+- **Choose your features.** Turn images, tables, alignment, and source editing on or off per field.
 
 ## Install
 
@@ -18,13 +21,15 @@ The editor stores content as an HTML string in a Payload `textarea` field. It do
 npm install payload-html-editor
 ```
 
-The field component imports its own CSS. If your setup needs an explicit style import, add this once in your admin bundle:
+The editor component imports its styles. If your application needs a direct CSS import, include this in your admin bundle:
 
 ```ts
 import 'payload-html-editor/styles.css'
 ```
 
-## Payload Config
+## Quick start
+
+Add the plugin to your Payload config. Set `mediaCollection` to the slug of your Payload upload collection:
 
 ```ts
 import { buildConfig } from 'payload'
@@ -39,89 +44,104 @@ export default buildConfig({
 })
 ```
 
-After installing or changing admin components, regenerate Payload's import map:
-
-```sh
-npx payload generate:importmap
-```
-
-## Field Usage
+Use the field in a collection or global:
 
 ```ts
+import type { CollectionConfig } from 'payload'
 import { htmlEditorField } from 'payload-html-editor'
 
-export const Pages = {
+export const Pages: CollectionConfig = {
   slug: 'pages',
   fields: [
     htmlEditorField({
       name: 'content',
       label: 'Content',
-      features: {
-        tables: true,
-        images: true,
-        sourceEditing: true,
-        textAlignment: true,
-      },
     }),
   ],
 }
 ```
 
-The plugin-level `mediaCollection` is used by all editor fields unless a field overrides it:
+Regenerate Payload's admin import map after adding or changing the field:
+
+```sh
+npx payload generate:importmap
+```
+
+## Features and options
+
+All editor features are enabled by default. Disable individual features for a field:
+
+```ts
+htmlEditorField({
+  name: 'summary',
+  features: {
+    images: false,
+    tables: false,
+    sourceEditing: false,
+    textAlignment: true,
+  },
+})
+```
+
+The plugin's `mediaCollection` is the default for every editor field. A field can override it:
 
 ```ts
 htmlEditorField({
   name: 'content',
   mediaCollection: 'assets',
+  maxUploadSize: 5 * 1024 * 1024,
 })
 ```
 
-## Options
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `name` | `string` | Required | Payload field name |
+| `label` | `string` | Field name | Admin field label |
+| `required` | `boolean` | `false` | Whether the field is required |
+| `mediaCollection` | `string` | Plugin setting or `media` | Upload collection used for image selection and upload |
+| `maxUploadSize` | `number` | 10 MB | Maximum image upload size in bytes |
+| `features.images` | `boolean` | `true` | Image insertion, upload, and media library |
+| `features.tables` | `boolean` | `true` | Table editing controls |
+| `features.sourceEditing` | `boolean` | `true` | HTML source modal |
+| `features.textAlignment` | `boolean` | `true` | Text alignment controls |
+| `admin` | `TextareaField['admin']` | — | Additional Payload admin field configuration |
+| `componentPath` | `string` | `payload-html-editor/client#HtmlEditor` | Custom admin field component path |
 
-```ts
-import type { TextareaField } from 'payload'
+Disabled features are omitted from both the toolbar and the Tiptap extension list.
 
-type HtmlEditorFieldOptions = {
-  name: string
-  label?: string
-  required?: boolean
-  admin?: TextareaField['admin']
-  componentPath?: string
-  mediaCollection?: string
-  maxUploadSize?: number
-  features?: {
-    tables?: boolean
-    images?: boolean
-    sourceEditing?: boolean
-    textAlignment?: boolean
-  }
-}
-```
+## Media collection
 
-`componentPath` defaults to `payload-html-editor/client#HtmlEditor`; override it only when using a custom admin field component.
-
-Disabled features are removed from the Tiptap extension list and from the toolbar.
-
-## Media Collection Requirements
-
-Image upload and selection use Payload's normal REST API with the current admin user's credentials. The configured collection should be an upload collection and should return:
+Image upload and selection use Payload's REST API with the current admin user's credentials. Configure an upload collection and make sure its documents include:
 
 - `id`
 - `url`
-- optional `alt`
-- optional `filename`
-- optional `width` and `height`
-- optional `sizes` entries with `url`, `width`, and `height`
+- Optional `alt`, `filename`, `width`, and `height`
+- Optional `sizes` with `url` and `width` for responsive `srcset`
 
-The editor only adds `srcset` candidates when a size has both `url` and `width`.
+Uploads are limited to JPEG, PNG, WebP, and GIF. Configure access on your collection as appropriate for your Payload users.
 
-## HTML And Security
+## Is this a CKEditor or WordPress replacement?
 
-The source editor lets admins submit HTML that Tiptap can parse through the configured schema. Unknown tags and unsupported attributes may be dropped by Tiptap.
+It offers a comparable **toolbar-based visual editing workflow** for common rich-text tasks, but it is not feature-for-feature compatible with CKEditor or WordPress. It is designed specifically as a Payload CMS field, and Tiptap's schema determines which HTML elements and attributes can be represented.
 
-Public rendering of saved HTML should still be sanitized at the output boundary according to your application's XSS policy, especially for links and user-provided markup.
+Existing HTML may be a useful starting point when migrating, but test representative content before switching. WordPress block-editor comments/blocks and markup or editor-specific CKEditor data may need conversion. Unsupported tags and attributes can be removed when Tiptap parses and saves content.
 
-## Package Development
+## Security
+
+The source editor allows admins to enter HTML that Tiptap can parse through its configured schema. **This package does not sanitize HTML for public display.** Sanitize saved content at your application's output boundary according to your XSS policy, especially if content can be supplied by untrusted users.
+
+## Compatibility
+
+The published package is developed and tested with:
+
+- Payload CMS `3.90.x`
+- React `19.2.x`
+- Tiptap `3.31.x`
+- Node.js `^18.20.2 || >=20.9.0`
+
+Payload, React, and Tiptap are peer dependencies. Next.js is not required by the package itself, but is commonly used with Payload.
+
+## Development
 
 ```sh
 npm install
@@ -129,19 +149,8 @@ npm run build
 npm run pack:check
 ```
 
-`npm run pack:check` runs `npm pack --dry-run` and shows the files that would be published.
+`npm run pack:check` builds the package and previews the files that would be published. Before opening a release, test the packed package in a Payload application.
 
-## Publishing
+## License
 
-Before publishing:
-
-1. Confirm the package name, repository URL, author, and version in `package.json`.
-2. Run `npm install`.
-3. Run `npm run build`.
-4. Run `npm run pack:check`.
-5. Test the package in a fresh Payload CMS 3 project.
-6. Publish with `npm publish` only after the dry run is correct.
-
-## Third-Party Licenses
-
-This package is MIT licensed. It relies on Payload, React, and Tiptap packages as peer dependencies. In the audited project versions, direct runtime dependencies used by this package are MIT licensed, including Payload UI, Payload, React, React DOM, and the listed Tiptap packages. Keep dependency license notices from your package manager output when publishing a larger distribution.
+MIT
