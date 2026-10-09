@@ -21,6 +21,23 @@ This is an independent editor built with Tiptap—not a WordPress or CKEditor cl
 npm install payload-html-editor
 ```
 
+### Peer dependencies
+
+This package uses Payload, React, and Tiptap packages provided by your application. With npm 7 or later, npm installs peer dependencies automatically by default. If your project sets `legacy-peer-deps=true` in `.npmrc`, npm skips that automatic installation. Remove that setting or install the Tiptap packages explicitly:
+
+```sh
+npm install \
+  @tiptap/core@^3.31.4 \
+  @tiptap/extension-file-handler@^3.31.4 \
+  @tiptap/extension-image@^3.31.4 \
+  @tiptap/extension-table@^3.31.4 \
+  @tiptap/extension-text-align@^3.31.4 \
+  @tiptap/react@^3.31.4 \
+  @tiptap/starter-kit@^3.31.4
+```
+
+Payload, `@payloadcms/ui`, React, and React DOM are also declared as peer dependencies. A Payload application normally already has these installed.
+
 The editor component imports its styles. If your application needs a direct CSS import, include this in your admin bundle:
 
 ```ts

@@ -3,4 +3,5 @@ dist
 *.tgz
 .env
 .DS_Store
+/_add
 /.idea
