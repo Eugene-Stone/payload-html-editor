@@ -45,7 +45,7 @@
 	background: var(--theme-elevation-50);
 
 	position: sticky;
-	z-index: 4;
+	z-index: 5;
 	top: 56px;
 }
 
@@ -55,11 +55,11 @@
 	top: calc(56px + 47px);
 }
 
-.payload-html-editor:focus-within .html-editor-toolbar {
+/* .payload-html-editor:focus-within .html-editor-toolbar {
 	position: sticky;
 	z-index: 4;
 	top: 56px;
-}
+} */
 
 
 /* =========================================================
@@ -358,7 +358,8 @@
 ========================================================= */
 
 .payload-html-editor .ProseMirror img {
-	display: block;
+	/* display: block; */
+	display: inline-block;
 
 	max-width: 100%;
 	height: auto;
@@ -382,9 +383,11 @@
 
 .alt-input__wraper {
 	position: absolute;
+	z-index: 2;
 	left: 0;
 	top: 100%;
 	background: var(--theme-elevation-50);
+	border: 1px solid var(--theme-elevation-150);
 	padding: 0 10px 10px;
 }
 .alt-input__wraper .alt-input {

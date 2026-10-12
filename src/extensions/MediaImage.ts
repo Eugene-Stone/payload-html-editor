@@ -24,10 +24,19 @@ export const MediaImage = Image.extend({
 			mediaId: {
 				default: null,
 			},
+
+			linkHref: {
+				default: null,
+				parseHTML: (element) => element.closest('a')?.getAttribute('href'),
+				renderHTML: () => ({}),
+			},
 		}
 	},
 
-	renderHTML({ HTMLAttributes }) {
-		return ['img', mergeAttributes(HTMLAttributes)]
+	renderHTML({ node, HTMLAttributes }) {
+		const linkHref = node.attrs.linkHref
+		const image = ['img', mergeAttributes(HTMLAttributes)] as const
+
+		return linkHref ? ['a', { href: linkHref }, image] : image
 	},
 })

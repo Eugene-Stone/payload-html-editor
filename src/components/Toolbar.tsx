@@ -39,7 +39,9 @@ export function Toolbar({ editor, features, onError, onUploadingChange, uploadOp
 			isBold: editor.isActive('bold'),
 			isBulletList: editor.isActive('bulletList'),
 			isItalic: editor.isActive('italic'),
-			isLink: editor.isActive('link'),
+			isLink:
+				editor.isActive('link') ||
+				(editor.isActive('image') && Boolean(editor.getAttributes('image').linkHref)),
 			isOrderedList: editor.isActive('orderedList'),
 			isStrike: editor.isActive('strike'),
 			isTableActive: editor.isActive('table'),
@@ -240,10 +242,25 @@ export function Toolbar({ editor, features, onError, onUploadingChange, uploadOp
 				<button
 					type="button"
 					className={editorState.isLink ? 'active' : ''}
+					onMouseDown={(event) => event.preventDefault()}
 					onClick={() => {
-						const url = window.prompt('URL', editor.getAttributes('link').href || '')
+						const isImageActive = editor.isActive('image')
+						const currentHref = isImageActive
+							? editor.getAttributes('image').linkHref
+							: editor.getAttributes('link').href
+						const url = window.prompt('URL', currentHref || '')
 
 						if (url === null) return
+
+						if (isImageActive) {
+							editor
+								.chain()
+								.focus()
+								.updateAttributes('image', { linkHref: url || null })
+								.run()
+
+							return
+						}
 
 						if (url === '') {
 							editor.chain().focus().unsetLink().run()

@@ -101,7 +101,11 @@ export default function HtmlEditor({ path, field }: Props) {
 
 	const extensions = useMemo(
 		() => [
-			StarterKit,
+			StarterKit.configure({
+				link: {
+					openOnClick: false,
+				},
+			}),
 			...(features.textAlignment
 				? [
 						TextAlign.configure({
@@ -183,7 +187,14 @@ export default function HtmlEditor({ path, field }: Props) {
 			{error && <div className="html-editor-error">{error}</div>}
 			{uploading && <div className="html-editor-status">Uploading image...</div>}
 
-			<EditorContent editor={editor} />
+			<EditorContent
+				editor={editor}
+				onClick={(event) => {
+					if (event.target instanceof Element && event.target.closest('a')) {
+						event.preventDefault()
+					}
+				}}
+			/>
 
 			{features.sourceEditing && <HtmlSourceModal editor={editor} />}
 		</div>
