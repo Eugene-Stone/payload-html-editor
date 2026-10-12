@@ -15,6 +15,9 @@ This is an independent editor built with Tiptap—not a WordPress or CKEditor cl
 - **Optional HTML source editor.** Inspect and edit source when visual editing is not enough.
 - **Choose your features.** Turn images, tables, alignment, and source editing on or off per field.
 
+## Demo
+[![Watch the demo](./docs/demo.webp)](https://youtu.be/Uf9x1gUL_jM)
+
 ## Install
 
 ```sh
