@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { FieldLabel, useField } from '@payloadcms/ui'
 
@@ -54,6 +54,8 @@ export default function HtmlEditor({ path, field }: Props) {
 	const { value, setValue } = useField<string>({ path })
 	const [uploading, setUploading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
+	const [toolbarIsSticky, setToolbarIsSticky] = useState(false)
+	const editorContainerRef = useRef<HTMLDivElement>(null)
 
 	const customOptions = field?.admin?.custom?.htmlEditor
 	const features = useMemo(
@@ -168,12 +170,44 @@ export default function HtmlEditor({ path, field }: Props) {
 		}
 	}, [editor, value])
 
+	useEffect(() => {
+		const updateToolbarStickyState = () => {
+			const container = editorContainerRef.current
+			const toolbar = container?.querySelector<HTMLElement>('.html-editor-toolbar')
+
+			if (!container || !toolbar) {
+				setToolbarIsSticky(false)
+				return
+			}
+
+			const stickyTop = Number.parseFloat(window.getComputedStyle(toolbar).top)
+			const toolbarRect = toolbar.getBoundingClientRect()
+			const containerRect = container.getBoundingClientRect()
+
+			setToolbarIsSticky(
+				toolbarRect.top <= stickyTop && containerRect.bottom > toolbarRect.bottom,
+			)
+		}
+
+		window.addEventListener('scroll', updateToolbarStickyState, true)
+		window.addEventListener('resize', updateToolbarStickyState)
+		updateToolbarStickyState()
+
+		return () => {
+			window.removeEventListener('scroll', updateToolbarStickyState, true)
+			window.removeEventListener('resize', updateToolbarStickyState)
+		}
+	}, [editor])
+
 	if (!editor) {
 		return null
 	}
 
 	return (
-		<div className="payload-html-editor">
+		<div
+			ref={editorContainerRef}
+			className={`payload-html-editor${toolbarIsSticky ? ' toolbar-is-sticky' : ''}`}
+		>
 			<FieldLabel label={field?.label || field?.name} path={path} required={field?.required} />
 
 			<Toolbar

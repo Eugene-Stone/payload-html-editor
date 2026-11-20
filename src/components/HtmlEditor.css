@@ -7,6 +7,10 @@
 	margin-bottom: 24px;
 }
 
+.payload-html-editor svg path {
+	fill: currentcolor;
+}
+
 .html-editor-error,
 .html-editor-status {
 	padding: 8px 12px;
@@ -30,6 +34,10 @@
    Toolbar
 ========================================================= */
 
+.toolbar-is-sticky .html-editor-toolbar,
+.toolbar-is-sticky .html-editor-table-toolbar {
+	position: sticky;
+}
 
 .html-editor-toolbar {
 	display: flex;
@@ -44,13 +52,13 @@
 
 	background: var(--theme-elevation-50);
 
-	position: sticky;
+	/* position: sticky; */
 	z-index: 5;
 	top: 56px;
 }
 
 .html-editor-table-toolbar {
-	position: sticky;
+	/* position: sticky; */
 	z-index: 4;
 	top: calc(56px + 47px);
 }
@@ -376,6 +384,7 @@
 	outline: 2px solid var(--theme-success-500);
 	outline-offset: 2px;
 }
+
 .image-toolbar-group {
 	position: relative;
 }
@@ -390,13 +399,16 @@
 	border: 1px solid var(--theme-elevation-150);
 	padding: 0 10px 10px;
 }
+
 .alt-input__wraper .alt-input {
 	padding: 5px;
 }
+
 .alt-input__wraper label {
 	font-size: 90%;
 	margin-bottom: 3px;
 }
+
 .image-toolbar-group select {
 	padding-left: 5px;
 	padding-right: 0;
@@ -909,65 +921,59 @@
 ======================================== */
 
 .html-editor-table-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
 
-  gap: 4px;
+	gap: 4px;
 
-  padding: 6px 8px;
+	padding: 6px 8px;
 
-  border: 1px solid
-    var(--theme-elevation-150);
+	border: 1px solid var(--theme-elevation-150);
 
-  border-top: 0;
+	border-top: 0;
 
-  background: var(--theme-elevation-50);
+	background: var(--theme-elevation-50);
 }
 
 
 .html-editor-table-toolbar strong {
-  margin-right: 4px;
+	margin-right: 4px;
 
-  font-size: 12px;
+	font-size: 12px;
 }
 
 
 .html-editor-table-toolbar button {
-  height: 30px;
+	height: 30px;
 
-  padding: 0 8px;
+	padding: 0 8px;
 
-  border: 1px solid transparent;
-  border-radius: 3px;
+	border: 1px solid transparent;
+	border-radius: 3px;
 
-  color: var(--theme-text);
-  background: transparent;
+	color: var(--theme-text);
+	background: transparent;
 
-  font-family: inherit;
-  font-size: 12px;
+	font-family: inherit;
+	font-size: 12px;
 
-  cursor: pointer;
+	cursor: pointer;
 }
 
 
 .html-editor-table-toolbar button:hover {
-  border-color: var(--theme-elevation-200);
+	border-color: var(--theme-elevation-200);
 
-  background: var(--theme-elevation-100);
+	background: var(--theme-elevation-100);
 }
 
 
 .html-editor-table-toolbar .separator {
-  width: 1px;
-  height: 22px;
+	width: 1px;
+	height: 22px;
 
-  margin: 0 4px;
+	margin: 0 4px;
 
-  background: var(--theme-elevation-150);
+	background: var(--theme-elevation-150);
 }
-
-
-
-
-
